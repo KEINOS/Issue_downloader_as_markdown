@@ -1,0 +1,9 @@
+{
+    "require": {
+        "phpunit/phpunit": "5.7.27"
+    },
+
+    "conflict": {
+        "phpunit/php-timer": ">=2"
+    }
+}
