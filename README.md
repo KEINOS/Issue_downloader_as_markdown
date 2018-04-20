@@ -1,34 +1,21 @@
-[![Build Status](https://travis-ci.org/KEINOS/Practice_Travis-CI.svg?branch=master)](https://travis-ci.org/KEINOS/Practice_Travis-CI)
+[![Build Status](https://travis-ci.org/KEINOS/GitHub_Issue-DL-As-MD.svg?branch=master)](https://travis-ci.org/KEINOS/GitHub_Issue-DL-As-MD)
 
-## Travis CI's PHP Template with PHPUnit
+## GitHub Issue Downloader As Markdown File
 
-とりあえず [Travis CI](https://ja.wikipedia.org/wiki/Travis_CI) で動く [PHPUnit](https://phpunit.de/manual/current/ja/) テスト付き「Hello World」の PHP テンプレート。
+PHP で GitHub の issue を Markdown 形式のファイルでダウンロードするスクリプトです。
 
-## 目標
+## 目的
 
-1. 当リポジトリをコピーするだけで Travis CI のテストが通るテンプレートの作成。
-2. 「Hello World」から徐々に実装できるようなシンプルなテンプレートであること。
-3. クラスやメソッド中心でなく、関数（`functions`）のテストができるようなもの。
+GitHub の issue を閉鎖しないといけなくなった場合など、過去の事例の設置先として **issue を wiki に転載するため**に一括ダウンロードします。
 
-## 検証環境
+[GitHub の Wiki も１つの個別リポジトリになっている](https://help.github.com/articles/adding-and-editing-wiki-pages-locally/)ので、`clone` して `push` するとローカルから Wiki を更新することができます。
 
-以下の環境で動作した PHP スクリプトを Travis CI で PHPUnit テストを通します。
-
-- macOS High Sierra (OSX 10.13.4)
-    - PHP 7.1.14 (cli)
-- Raspbian Jessie (Debian GNU/Linux 8.0)
-    - PHP 7.1.12 (cli)
-- CentOS 7.4.1708 (Redhat Linux, Core) 
-    - PHP 5.6.35 (cli) 
-    - PHP 7.2.4 (cli)
-
-- PHPUnit v.5.0.10 via Composer
-    - PHP 5.6, 7.0, 7.1 コンパチは PHPUnit 5 であるため
+そのため、Markdown 形式で一括ダウンロードした issue であれば、簡単に Wiki に反映できることを期待します。
 
 ## ディレクトリ構成
 
 ```
-Practice_Travis-CI/
+GitHub_Issue-DL-As-MD/
 	┣━ README.md （このファイル）
 	┣━ .git/ （このリポジトリの git 情報）
 	┣━ .gitignore/ （git 同期で除外するファイル／ディレクトリを指定）
@@ -42,38 +29,14 @@ Practice_Travis-CI/
 	┗━ test/ （Travis CI で実行するテスト）
 		┣━ FunctionsTest.php
 		┗━ ClassesTest.php
-```	
+```
 
-## テンプレートの使い方
+## 検証環境
 
-1. GitHub と [Travis CI](https://travis-ci.org/) にアカウントを作成する。
-1. GitHub に空のリポジトリを作成する。
-1. Travis CI 上で作成した GitHub のリポジトリを追加する。
-1. 作成した GitHub リポジトリをローカルにクローンする。
-1. クローンしたローカル・リポジトリ内に、この[リポジトリをダウンロード](https://github.com/KEINOS/Practice_Travis-CI/archive/master.zip)、解凍したものを移動する。
-1. 移動したファイルやディレクトリをコミットする（イニシャルコミット）
-1. リモート（GitHub）にマージ後プッシュ／プルリクエストします。
-1. Travis CI が連動してテストを始めるのを確認します。
+このスクリプトは以下の環境で動作検証しています。
 
-
-## ローカルにテスト環境を作る
-
-1. 自分の環境の PHP バージョンを確認します。
-1. カレントディレクトリをクローンしたリポジトリに移します。
-1. `.travis.yml` に自分の PHP バージョンを追記します。
-1. `composer.lock` ファイルを削除します。（`$ rm composer.lock`）
-1. `composer` コマンドが使えるのを確認します。（`$ composer --version`）
-1. PHPUnit をインストールする。
-    - `$ composer update`
-    - `$ composer install`
-1. `vendor` ディレクトリが出来たのを確認し、PHPUnit のバージョンを確認する。
-    - `$ vendor/bin/phpunit --version`
-1. `tests` ディレクトリ内のテストを実行する。
-    - `$ vendor/bin/phpunit tests`
-    - 「OK, but incomplete, skipped, or risky tests!」と出れば OK。記述中の「..I」は、３つのテストのうち２つがパスして１つをスキップしたことを意味します。
-
-
-
-
+- macOS High Sierra (OSX 10.13.4)
+    - PHP 7.1.14 (cli)
+    - PHPUnit v.5.0.10 via Composer
 
 
