@@ -15,14 +15,39 @@ function fetch_option_default()
     return $option;
 }
 
-function fetch_url_endpoint($option)
+function fetch_url_request($option)
 {
-    //
+    $page         = fetch_value($option,'page', 1);
+    $access_token = fetch_value($option,'access_token');
+
+    $query =[
+         'page'         => $page,
+         'state'        => 'all',
+         'sort'         => 'created',
+         'direction'    => 'asc',
+         'access_token' => $access_token,
+         ];
+    
+    $url  = fetch_endpoint_issues($option);
+    $url .= '?' . http_build_query($query);
+    
+    return $url;
 }
 
-function fetch_value($array, $key)
+function fetch_endpoint_issues($option)
 {
-    $result = false;
+    $name_repo_owner = fetch_value($option,'name_repo_owner','NAME_OWNER');
+    $name_repo       = fetch_value($option,'name_repo', 'NAME_REPO');
+    $url  = "https://api.github.com/repos/";
+    $url .= $name_repo_owner . '/' . $name_repo . '/';
+    $url .= 'issues';
+    
+    return $url;
+}
+
+function fetch_value($array, $key, $default_value = '')
+{
+    $result = $default_value ?: false;
 
     if (is_array($array) && isset($array[$key]) && ! empty($array[$key])) {
         $result = $array[$key];
