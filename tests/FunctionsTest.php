@@ -14,7 +14,6 @@ class FunctionsTest extends TestCase
     public function test_assertTrue()
     {
         $this->assertTrue(is_array(fetch_option_default()));
-        $this->assertTrue(is_string(fetch_option_default()));
     }
 
     public function test_2()
