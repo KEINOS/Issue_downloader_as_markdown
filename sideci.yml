@@ -1,0 +1,7 @@
+linter:
+  phpmd:
+    options:
+      suffixes: php,inc
+      exclude: vendor/
+      strict: true
+
