@@ -6,19 +6,26 @@ use PHPUnit\Framework\TestCase;
 
 class FunctionsTest extends TestCase
 {
+
     public function setUp()
     {
-        //
+        $this->array_sample1 = [
+            'one' => true,
+            'two' => false,
+        ];
+        $this->string_sample1 = 'sample1';
     }
 
     public function test_assertTrue()
     {
         $this->assertTrue(is_array(fetch_option_default()));
+        $this->assertTrue(fetch_value($this->array_sample1, 'one'));
     }
 
-    public function test_2()
+    public function test_assertFalse()
     {
-        $this->assertTrue(is_array(fetch_option_default()));
+        $this->assertFalse(fetch_value($this->string_sample1, 'one'));
+        $this->assertFalse(fetch_value($this->array_sample1, 'none'));
     }
 
 
