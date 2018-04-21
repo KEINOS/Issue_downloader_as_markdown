@@ -1,7 +1,6 @@
 <?php
 
 include('Functions.php');
-include('Classes.php');
 
 $msg = 'Hello World!';
 
