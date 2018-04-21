@@ -19,7 +19,7 @@ class FunctionsTest extends TestCase
 
     public function test_fetch_option_default()
     {
-        $this->assertTrue(is_array(fetch_option_default()));        
+        $this->assertTrue(is_array(fetch_option_default()));
     }
 
     public function test_fetch_value()
@@ -38,7 +38,6 @@ class FunctionsTest extends TestCase
         /* False is OK area */
         $this->assertFalse(fetch_value($this->string_sample1, 'one'));
         $this->assertFalse(fetch_value($this->array_sample1, 'none'));
-        
     }
 
     /*
