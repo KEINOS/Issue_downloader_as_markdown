@@ -1,7 +1,8 @@
 linter:
-  phpmd:
-    options:
-      suffixes: php,inc
-      exclude: vendor/
-      strict: true
+  rubocop:
+    root_dir: 'sideci_demo'
 
+  phpmd:
+    root_dir: 'sideci_demo'
+    options:
+      rule: 'phpmd.xml'
