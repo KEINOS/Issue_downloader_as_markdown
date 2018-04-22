@@ -26,16 +26,16 @@ class FunctionsTest extends TestCase
     {
         $default = $this->string_default1;
 
-        /* True is OK area */
+        /* Pass if True area */
         $this->assertTrue(fetch_value($this->array_sample1, 'one'));
 
         $value = fetch_value($this->array_sample1, 'none', $default);
-        $this->assertTrue($default === $value);
+        $this->assertEquals($default, $value);
 
         $value = fetch_value($this->string_sample1, 'one', $default);
-        $this->assertTrue($default === $value);
+        $this->assertEquals($default === $value);
 
-        /* False is OK area */
+        /* Pass if False area */
         $this->assertFalse(fetch_value($this->string_sample1, 'one'));
         $this->assertFalse(fetch_value($this->array_sample1, 'none'));
     }
