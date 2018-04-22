@@ -33,7 +33,7 @@ class FunctionsTest extends TestCase
         $this->assertEquals($default, $value);
 
         $value = fetch_value($this->string_sample1, 'one', $default);
-        $this->assertEquals($default === $value);
+        $this->assertEquals($default, $value);
 
         /* Pass if False area */
         $this->assertFalse(fetch_value($this->string_sample1, 'one'));
