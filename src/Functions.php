@@ -2,6 +2,17 @@
 
 // ("/repos/$owner/$repo/issues", 'GET', $data, 200, 'GitHubIssue', true)
 
+function fetch_endpoint_issues($option)
+{
+    $name_repo_owner = fetch_value($option, 'name_repo_owner', 'NAME_OWNER');
+    $name_repo       = fetch_value($option, 'name_repo', 'NAME_REPO');
+    $url  = "https://api.github.com/repos/";
+    $url .= $name_repo_owner . '/' . $name_repo . '/';
+    $url .= 'issues';
+
+    return $url;
+}
+
 function fetch_option_default()
 {
     $option = [
@@ -31,17 +42,6 @@ function fetch_url_request($option)
 
     $url  = fetch_endpoint_issues($option);
     $url .= '?' . http_build_query($query);
-
-    return $url;
-}
-
-function fetch_endpoint_issues($option)
-{
-    $name_repo_owner = fetch_value($option, 'name_repo_owner', 'NAME_OWNER');
-    $name_repo       = fetch_value($option, 'name_repo', 'NAME_REPO');
-    $url  = "https://api.github.com/repos/";
-    $url .= $name_repo_owner . '/' . $name_repo . '/';
-    $url .= 'issues';
 
     return $url;
 }
