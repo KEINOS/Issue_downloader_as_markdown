@@ -2,13 +2,6 @@
 
 include('Functions.php');
 
-$msg = 'Hello World!';
+$option = fetch_option_default();
 
-/* Function */
-echo return_message($msg) . PHP_EOL;
-
-/* Class */
-echo MyClass::return_message($msg) . PHP_EOL;
-
-$test = new MyClass();
-$test->echo_message($msg); echo PHP_EOL;
+echo fetch_url_request($option);
