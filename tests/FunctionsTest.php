@@ -17,28 +17,26 @@ class FunctionsTest extends TestCase
         $this->string_default1 = 'default1';
     }
 
+    public function test_fetch_endpoint_issues()
+    {
+        include_once('tests/test_fetch_endpoint_issues.php.inc');        
+    }
+
     public function test_fetch_option_default()
     {
-        $this->assertTrue(is_array(fetch_option_default()));
+        include_once('test_fetch_option_default.php.inc');
+    }
+
+    public function test_fetch_url_request()
+    {
+        include_once('tests/test_fetch_url_request.php.inc');        
     }
 
     public function test_fetch_value()
     {
-        $default = $this->string_default1;
-
-        /* Pass if True area */
-        $this->assertTrue(fetch_value($this->array_sample1, 'one'));
-
-        $value = fetch_value($this->array_sample1, 'none', $default);
-        $this->assertEquals($default, $value);
-
-        $value = fetch_value($this->string_sample1, 'one', $default);
-        $this->assertEquals($default, $value);
-
-        /* Pass if False area */
-        $this->assertFalse(fetch_value($this->string_sample1, 'one'));
-        $this->assertFalse(fetch_value($this->array_sample1, 'none'));
+        include_once('tests/test_fetch_value.php.inc');
     }
+
 
     /*
      * 未実装・テスト準備済みは`markTestIncomplete(理由)`メソッドを使う
