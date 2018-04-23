@@ -13,6 +13,9 @@ function fetch_endpoint_issues($option)
     return $url;
 }
 
+/**
+ * @SuppressWarnings(PHPMD)
+ */
 function fetch_option($name_file_option = 'option_settings.json')
 {
     $name_file_option = basename($name_file_option);
@@ -113,7 +116,7 @@ function format_comment($comments)
         $name_user    = $comment['user']['login'];
         $msg_comment  = $comment['body'];
         $result .= PHP_EOL . '-----' . PHP_EOL;
-        $result .= PHP_EOL . "${date_created} by ${name_user}" . PHP_EOL;
+        $result .= PHP_EOL . "{$date_created} by {$name_user}" . PHP_EOL;
         $result .= PHP_EOL . $msg_comment . PHP_EOL;
     }
 
@@ -134,7 +137,7 @@ function format_md($issue)
     $result  = '';
     $result .= '# ' . $title . PHP_EOL;
     $result .= PHP_EOL;
-    $result .= "- ${date_created} by ${name_user}" . PHP_EOL;
+    $result .= "- {$date_created} by {$name_user}" . PHP_EOL;
     $result .= "- State: ${state}" . PHP_EOL;
     $result .= "- Archive of ${url_repository}" . PHP_EOL;
     $result .= PHP_EOL . '## 本文' . PHP_EOL;
