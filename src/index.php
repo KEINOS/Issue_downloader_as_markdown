@@ -4,7 +4,9 @@ include('Functions.php');
 const DIR_SEP = DIRECTORY_SEPARATOR;
 
 // 設定読み込み
-$option = fetch_option();
+if (!($option = fetch_option())) {
+    die;
+}
 // Issue 一覧取得
 $issues = request_api_issue($option);
 // 保存先のパス

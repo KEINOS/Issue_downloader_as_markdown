@@ -4,7 +4,6 @@
 function die_exit($msg)
 {
     file_put_contents('php://stderr', $msg . PHP_EOL);
-    exit(1);
 }
 
 /* -------------------------------------------------------------- [F] */
