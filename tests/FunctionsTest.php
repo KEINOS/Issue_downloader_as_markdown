@@ -16,6 +16,10 @@ class FunctionsTest extends TestCase
         $this->string_sample1  = 'sample1';
         $this->string_default1 = 'default1';
     }
+    public function test_request_api_issue()
+    {
+        include_once('tests/test_request_api_issue.php.inc');        
+    }
 
     public function test_fetch_endpoint_issues()
     {
