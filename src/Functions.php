@@ -1,7 +1,6 @@
 <?php
 
-/* -------------------------------------------------------------- [E] */
-
+/** * @SuppressWarnings(PHPMD) */
 function die_exit($msg)
 {
     file_put_contents('php://stderr', $msg . PHP_EOL);
