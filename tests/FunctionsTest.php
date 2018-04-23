@@ -13,27 +13,40 @@ class FunctionsTest extends TestCase
             'one' => true,
             'two' => false,
         ];
-        $this->string_sample1 = 'sample1';
+        $this->string_sample1  = 'sample1';
+        $this->string_default1 = 'default1';
+    }
+    public function testRequestApiIssue()
+    {
+        include_once('tests/test_request_api_issue.php.inc');
     }
 
-    public function test_assertTrue()
+    public function testFetchEndpointIssues()
     {
-        $this->assertTrue(is_array(fetch_option_default()));
-        $this->assertTrue(fetch_value($this->array_sample1, 'one'));
+        include_once('tests/test_fetch_endpoint_issues.php.inc');
     }
 
-    public function test_assertFalse()
+    public function testFetchOptionDefault()
     {
-        $this->assertFalse(fetch_value($this->string_sample1, 'one'));
-        $this->assertFalse(fetch_value($this->array_sample1, 'none'));
+        include_once('test_fetch_option_default.php.inc');
+    }
+
+    public function testFetchUrlRequest()
+    {
+        include_once('tests/test_fetch_url_request.php.inc');
+    }
+
+    public function testFetchValue()
+    {
+        include_once('tests/test_fetch_value.php.inc');
     }
 
 
     /*
      * 未実装・テスト準備済みは`markTestIncomplete(理由)`メソッドを使う
      */
-    public function test_unknown()
+    public function testUnknown()
     {
-        $this->markTestIncomplete('unknown関数は準備中です');
+        //$this->markTestIncomplete('unknown関数は準備中です');
     }
 }
