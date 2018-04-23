@@ -2,10 +2,10 @@
 
 /* -------------------------------------------------------------- [E] */
 
-/** * @SuppressWarnings(PHPMD.ExitExpression) */
 function die_exit($msg)
 {
-    die($msg);
+    file_put_contents('php://stderr', $msg . PHP_EOL);
+    exit(1);
 }
 
 /* -------------------------------------------------------------- [F] */
