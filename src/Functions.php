@@ -2,11 +2,7 @@
 
 /* -------------------------------------------------------------- [E] */
 
-/**
- * Die and exit.
- *
- * @SuppressWarnings(PHPMD)
- */
+/** * @SuppressWarnings(PHPMD) */
 function die_exit($msg)
 {
     die($msg);
