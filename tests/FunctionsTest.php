@@ -16,27 +16,27 @@ class FunctionsTest extends TestCase
         $this->string_sample1  = 'sample1';
         $this->string_default1 = 'default1';
     }
-    public function test_request_api_issue()
+    public function testRequestApiIssue()
     {
-        include_once('tests/test_request_api_issue.php.inc');        
+        include_once('tests/test_request_api_issue.php.inc');
     }
 
-    public function test_fetch_endpoint_issues()
+    public function testFetchEndpointIssues()
     {
-        include_once('tests/test_fetch_endpoint_issues.php.inc');        
+        include_once('tests/test_fetch_endpoint_issues.php.inc');
     }
 
-    public function test_fetch_option_default()
+    public function testFetchOptionDefault()
     {
         include_once('test_fetch_option_default.php.inc');
     }
 
-    public function test_fetch_url_request()
+    public function testFetchUrlRequest()
     {
-        include_once('tests/test_fetch_url_request.php.inc');        
+        include_once('tests/test_fetch_url_request.php.inc');
     }
 
-    public function test_fetch_value()
+    public function testFetchValue()
     {
         include_once('tests/test_fetch_value.php.inc');
     }
@@ -45,7 +45,7 @@ class FunctionsTest extends TestCase
     /*
      * 未実装・テスト準備済みは`markTestIncomplete(理由)`メソッドを使う
      */
-    public function test_unknown()
+    public function testUnknown()
     {
         //$this->markTestIncomplete('unknown関数は準備中です');
     }

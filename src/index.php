@@ -17,7 +17,8 @@ $name_repo_issue = $option['name_repo'];
 // 出力済み Issue の一覧のヘッダ
 $name_file_list     = 'Issue list of ' . $name_repo_issue;
 $string_list_issue  = '# ' . $name_file_list . PHP_EOL . PHP_EOL;
-$string_list_issue .= "これは ${name_repo_issue} リポジトリの issue をアーカイブしたものです。" . PHP_EOL;
+$string_list_issue .= "これは ${name_repo_issue} リポジトリの issue を";
+$string_list_issue .= 'アーカイブしたものです。' . PHP_EOL;
 
 // Issue 毎のファイル出力
 foreach ($issues as $issue) {

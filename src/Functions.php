@@ -132,7 +132,6 @@ function format_md($issue)
     $timestamp    = strtotime($issue['created_at']);
     $date_created = date("Y/m/d H:i", $timestamp);
     $name_user    = $issue['user']['login'];
-    $msg_comment  = $issue['body'];
 
     $result  = '';
     $result .= '# ' . $title . PHP_EOL;
