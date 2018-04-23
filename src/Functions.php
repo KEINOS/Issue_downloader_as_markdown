@@ -138,8 +138,8 @@ function format_md($issue)
     $result .= '# ' . $title . PHP_EOL;
     $result .= PHP_EOL;
     $result .= "- {$date_created} by {$name_user}" . PHP_EOL;
-    $result .= "- State: ${state}" . PHP_EOL;
-    $result .= "- Archive of ${url_repository}" . PHP_EOL;
+    $result .= "- State: {$state}" . PHP_EOL;
+    $result .= "- Archive of {$url_repository}" . PHP_EOL;
     $result .= PHP_EOL . '## 本文' . PHP_EOL;
     $result .= PHP_EOL . $body . PHP_EOL;
     $result .= PHP_EOL . '-----' . PHP_EOL;
@@ -162,7 +162,7 @@ function request_api($option)
                 'method' => 'GET',
                 'header' => [
                     'User-Agent: Qithub-BOT',
-                    "Authorization: token ${access_token}",
+                    "Authorization: token {$access_token}",
                     $request_api_v3,
                 ],
             ],
