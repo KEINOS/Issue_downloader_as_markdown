@@ -1,5 +1,17 @@
 <?php
 
+/* -------------------------------------------------------------- [E] */
+
+/**
+ * Die and exit.
+ *
+ * @SuppressWarnings(PHPMD)
+ */
+function die_exit($msg)
+{
+    die($msg);
+}
+
 /* -------------------------------------------------------------- [F] */
 
 function fetch_endpoint_issues($option)
@@ -13,9 +25,6 @@ function fetch_endpoint_issues($option)
     return $url;
 }
 
-/**
- * @SuppressWarnings(PHPMD)
- */
 function fetch_option($name_file_option = 'option_settings.json')
 {
     $name_file_option = basename($name_file_option);
@@ -30,16 +39,16 @@ function fetch_option($name_file_option = 'option_settings.json')
     $option_array = fetch_option_default();
     $option_json  = json_encode($option_array, JSON_PRETTY_PRINT);
 
-    if( file_put_contents($path_file_option, $option_json) ){
+    if (file_put_contents($path_file_option, $option_json)) {
         $msg  = '設定ファイルを作成しました。';
         $msg .= '必要事項を記入し再実行してください。' . PHP_EOL;
         $msg .= '保存先： ' . $path_file_option . PHP_EOL;
-        die($msg);
+        die_exit($msg);
     }
 
     $msg  = '設定ファイルの作成ができません。';
     $msg .= 'フォルダのアクセス権を確認してください。' . PHP_EOL;
-    die($msg);    
+    die_exit($msg);
 }
 
 function fetch_option_default()
@@ -166,7 +175,7 @@ function request_api($option)
                 ],
             ],
         ]);
-        if( $result = @file_get_contents($url_request, false, $context)){
+        if ($result = @file_get_contents($url_request, false, $context)) {
             sleep(1);
             return json_decode($result, JSON_OBJECT_AS_ARRAY);
         }
