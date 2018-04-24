@@ -12,9 +12,11 @@ PHP で GitHub の issue を Markdown 形式のファイルでダウンロード
 
 GitHub の issue を閉鎖しないといけなくなった場合など、過去の事例の設置先として **issue を wiki に転載するため**に一括ダウンロードします。
 
-[GitHub の Wiki も１つの個別リポジトリになっている](https://help.github.com/articles/adding-and-editing-wiki-pages-locally/)ので、`clone` して `push` するとローカルから Wiki を更新することができます。
+## 用途
 
-そのため、Markdown 形式で一括ダウンロードした issue であれば、簡単に Wiki に反映できることを期待します。
+[GitHub の Wiki も１つの個別リポジトリになっている](https://help.github.com/articles/adding-and-editing-wiki-pages-locally/)ので、Wiki を `clone` して `push` するとローカルからも Wiki を更新することができます。
+
+その仕組みを利用し、Markdown 形式で一括ダウンロードした issue を `clone` した Wiki のリポジトリに保存して `push` すれば、簡単に Wiki に反映できます。
 
 ## ディレクトリ構成
 
@@ -22,14 +24,17 @@ GitHub の issue を閉鎖しないといけなくなった場合など、過去
 GitHub_Issue-DL-As-MD/
 	┣━ README.md （このファイル）
 	┣━ .git/ （このリポジトリの git 情報）
-	┣━ .gitignore/ （git 同期で除外するファイル／ディレクトリを指定）
+	┣━ .gitignore （git 同期で除外するファイル／ディレクトリを指定）
 	┣━ .travis.yum （Travis CI の設定ファイル。実行チェック）
 	┣━ sideci.yum （Side CI の設定ファイル。書式チェック）
 	┣━ composer.json （PHPUnit インストール用 Composer 設定ファイル）
 	┣━ composer.lock （検証時の Composer 環境再現ファイル）
 	┣━ src/ （メインとなるソースコード）
 	┃	┣━ index.php （本体の実行ファイル）
-	┃	┗━ Functions.php （ユーザ関数一覧）
+	┃	┣━ Functions.php （ユーザ関数一覧）
+	┃	┣━ （option_settings.json）（実行後作成されるユーザ設定ファイル）
+	┃	┣━ （issues/）（実行後作成される issue の MD ファイル出力先ディレクトリ）
+	┃	┗━ （issues_json/）（実行後作成される issue の JSON ファイル出力先ディレクトリ）
 	┗━ test/ （Travis CI で実行するテスト）
 		┗━ FunctionsTest.php
 ```
