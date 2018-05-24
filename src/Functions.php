@@ -27,6 +27,7 @@ function fetch_option($name_file_option = 'option_settings.json')
 
     if (file_exists($path_file_option)) {
         $option_json = file_get_contents($path_file_option);
+
         return json_decode($option_json, JSON_OBJECT_AS_ARRAY);
     }
 
@@ -118,9 +119,10 @@ function format_comment($comments)
         $date_created = date("Y/m/d H:i", $timestamp);
         $name_user    = $comment['user']['login'];
         $msg_comment  = $comment['body'];
-        $result .= PHP_EOL . '-----' . PHP_EOL;
-        $result .= PHP_EOL . "{$date_created} by {$name_user}" . PHP_EOL;
-        $result .= PHP_EOL . $msg_comment . PHP_EOL;
+
+        $result      .= PHP_EOL . '-----' . PHP_EOL;
+        $result      .= PHP_EOL . "{$date_created} by {$name_user}" . PHP_EOL;
+        $result      .= PHP_EOL . $msg_comment . PHP_EOL;
     }
 
     return $result;
@@ -132,9 +134,9 @@ function format_md($issue)
     $body    = fetch_value($issue, 'body');
     $state   = fetch_value($issue, 'state');
     $url_repository = fetch_value($issue, 'repository_url');
-    $timestamp    = strtotime($issue['created_at']);
-    $date_created = date("Y/m/d H:i", $timestamp);
-    $name_user    = $issue['user']['login'];
+    $timestamp      = strtotime($issue['created_at']);
+    $date_created   = date("Y/m/d H:i", $timestamp);
+    $name_user      = $issue['user']['login'];
 
     $result  = '';
     $result .= '# ' . $title . PHP_EOL;
@@ -171,6 +173,7 @@ function request_api($option)
         ]);
         if ($result = @file_get_contents($url_request, false, $context)) {
             sleep(1);
+
             return json_decode($result, JSON_OBJECT_AS_ARRAY);
         }
     }
