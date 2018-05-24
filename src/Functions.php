@@ -153,6 +153,26 @@ function format_md($issue)
     return $result;
 }
 
+/* -------------------------------------------------------------- [P] */
+
+function parse_headers($headers)
+{
+    $head = array();
+
+    foreach ($headers as $key => $value) {
+        $tmp = explode(':', $value, 2);
+        if (isset($tmp[1])) {
+            $head[ trim($tmp[0]) ] = trim($tmp[1]);
+        } else {
+            $head[] = $value;
+            if (preg_match("#HTTP/[0-9\.]+\s+([0-9]+)#", $value, $matches)) {
+                $head['reponse_code'] = intval($matches[1]);
+            }
+        }
+    }
+    return $head;
+}
+
 /* -------------------------------------------------------------- [R] */
 
 function request_api($option)
@@ -172,6 +192,8 @@ function request_api($option)
             ],
         ]);
         if ($result = @file_get_contents($url_request, false, $context)) {
+            print_r($http_response_header);
+            die;
             sleep(1);
 
             return json_decode($result, JSON_OBJECT_AS_ARRAY);
