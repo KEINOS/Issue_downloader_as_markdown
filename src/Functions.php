@@ -28,6 +28,8 @@ function fetch_option($name_file_option = 'option_settings.json')
     if (file_exists($path_file_option)) {
         $option_json = file_get_contents($path_file_option);
 
+        echo "- オプションを読み込みました。（{$name_file_option}）", PHP_EOL;
+
         return json_decode($option_json, JSON_OBJECT_AS_ARRAY);
     }
 
@@ -71,7 +73,7 @@ function fetch_path_dir_issue($name_dir_issue = 'issues')
 
 function fetch_url_request($option)
 {
-    $page         = fetch_value($option, 'page', 1);
+    $page         = fetch_value($option, 'page', null);
     $state        = fetch_value($option, 'state', 'all');
     $sort         = fetch_value($option, 'sort', 'created');
     $direction    = fetch_value($option, 'direction', 'asc');
@@ -84,6 +86,10 @@ function fetch_url_request($option)
          'direction'    => $direction,
          'access_token' => $access_token,
     ];
+    
+    if(null === $page){
+        unset($query['page']);
+    }
 
     if (empty($access_token)) {
         unset($query['access_token']);
@@ -162,7 +168,11 @@ function parse_headers($headers)
     foreach ($headers as $key => $value) {
         $tmp = explode(':', $value, 2);
         if (isset($tmp[1])) {
-            $head[ trim($tmp[0]) ] = trim($tmp[1]);
+            $header_key = trim($tmp[0]);
+            if ('Link' === $header_key) {
+                $tmp[1] = parse_header_link($tmp[1]);
+            }
+            $head[$header_key] = $tmp[1];
         } else {
             $head[] = $value;
             if (preg_match("#HTTP/[0-9\.]+\s+([0-9]+)#", $value, $matches)) {
@@ -173,9 +183,33 @@ function parse_headers($headers)
     return $head;
 }
 
+function parse_header_link($link_header)
+{
+    /*
+        Format of $link_header
+            <https://〜>; rel="next",<https://〜>; rel="last"
+    */
+    $header = (string) $link_header;
+    $links  = explode(',', $header);
+    $result = array();
+
+    foreach ($links as $link) {
+        $tmp = explode(';', $link);
+        $url = trim_url($tmp[0]);
+        $rel = trim_rel($tmp[1]); // trim: rel="last" -> last
+
+        $result[] = [
+            'url' => $url,
+            'rel' => $rel,
+        ];
+    }
+
+    return $result;
+}
+
 /* -------------------------------------------------------------- [R] */
 
-function request_api($option)
+function request_api($option, &$response_header = array())
 {
     $url_request  = fetch_value($option, 'url_request');
     $access_token = fetch_value($option, 'access_token');
@@ -192,8 +226,7 @@ function request_api($option)
             ],
         ]);
         if ($result = @file_get_contents($url_request, false, $context)) {
-            print_r($http_response_header);
-            die;
+            $response_header = $http_response_header;
             sleep(1);
 
             return json_decode($result, JSON_OBJECT_AS_ARRAY);
@@ -205,8 +238,57 @@ function request_api($option)
 
 function request_api_issue($option)
 {
+    $response_header  = array();
+    $result           = array();
+
     $option['url_request'] = fetch_url_request($option);
-    return request_api($option);
+
+    echo 'Fetching issues list ';
+
+    while (true) {
+        
+        echo '.';
+
+        $responce = request_api($option, $http_response_header);
+        $result   = array_merge($result, $responce);
+
+        $tmp         = parse_headers($http_response_header);
+        $tmp['Link'] = fetch_value($tmp, 'Link', array());
+
+        if (! count($tmp['Link'])) {
+            echo PHP_EOL;
+            echo 'There is NO next pages to read.', PHP_EOL;
+            break;
+        }
+
+        foreach($tmp['Link'] as $link){
+            $found_next = false;
+
+            if('next' === $link['rel']){
+                echo '.';
+                $option['url_request'] = $link['url'];
+                $found_next = true;
+                break;
+            }
+        }
+        
+        if(! $found_next){
+            echo PHP_EOL;
+            break;
+        }
+    }
+
+    return $result;
 }
 
-/* -------------------------------------------------------------- [S] */
+/* -------------------------------------------------------------- [T] */
+
+function trim_rel($string)
+{
+    return trim(str_replace(['rel=','"'], '', trim($string)));
+}
+
+function trim_url($string)
+{
+    return trim(str_replace(['<','>'], '', trim($string)));
+}

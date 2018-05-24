@@ -51,12 +51,14 @@ foreach ($issues as $issue) {
         && file_put_contents($path_file_json, $issue_json)
     ) {
         echo $name_file_issue;
-        echo ' ', $count_current, '/',  $count_issues, PHP_EOL;
+        echo ' ', $count_current, '/',  $count_issues, "\r";
     }
 
     // 進捗のカウント
     ++$count_current;
 }
+
+echo PHP_EOL;
 
 // Issue 一覧のファイル出力
 $path_file_list = $path_dir_issue_md . DIR_SEP . $name_file_list . '.md';
