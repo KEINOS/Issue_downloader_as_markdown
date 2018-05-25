@@ -1,6 +1,6 @@
 <?php
 /**
- * `fetch_value`関数の仕様テスト.
+ * `request_api_issue`関数の仕様テスト.
  *
  * この関数の要件のみをテスト。
  */
