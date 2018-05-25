@@ -6,7 +6,21 @@ function die_exit($msg)
     file_put_contents('php://stderr', $msg . PHP_EOL);
 }
 
-/* -------------------------------------------------------------- [F] */
+/* ---------------------------------------------------------------------- [E] */
+
+function echo_as_its_archive($link='')
+{
+    $link = (string) $link;
+    $str  = ' issue をアーカイブ';
+
+    if(! empty($link)){
+        $str = "[{$str}]({$link_file_list})";
+    }
+
+    return "これは ${name_repo_issue} リポジトリの{$str}したものです。" . PHP_EOL;
+}
+
+/* ---------------------------------------------------------------------- [F] */
 
 function fetch_endpoint_issues($option)
 {
@@ -86,8 +100,8 @@ function fetch_url_request($option)
          'direction'    => $direction,
          'access_token' => $access_token,
     ];
-    
-    if(null === $page){
+
+    if (empty($page)) {
         unset($query['page']);
     }
 
@@ -110,6 +124,10 @@ function fetch_value($array, $key, $default_value = '')
     }
 
     return $result;
+}
+
+function fetch_version_app(){
+    return VER_APP;
 }
 
 function format_comment($comments)
@@ -159,28 +177,30 @@ function format_md($issue)
     return $result;
 }
 
-/* -------------------------------------------------------------- [P] */
+/* ---------------------------------------------------------------------- [P] */
 
 function parse_headers($headers)
 {
-    $head = array();
+    $result  = array();
+    $headers = (array) $headers;
 
-    foreach ($headers as $key => $value) {
+    foreach ($headers as $value) {
         $tmp = explode(':', $value, 2);
+
         if (isset($tmp[1])) {
-            $header_key = trim($tmp[0]);
-            if ('Link' === $header_key) {
+            $key = trim($tmp[0]);
+            if ('Link' === $key) {
                 $tmp[1] = parse_header_link($tmp[1]);
             }
-            $head[$header_key] = $tmp[1];
+            $result[$key] = $tmp[1];
         } else {
-            $head[] = $value;
+            $result[] = $value;
             if (preg_match("#HTTP/[0-9\.]+\s+([0-9]+)#", $value, $matches)) {
-                $head['reponse_code'] = intval($matches[1]);
+                $result['reponse_code'] = intval($matches[1]);
             }
         }
     }
-    return $head;
+    return $result;
 }
 
 function parse_header_link($link_header)
@@ -207,12 +227,17 @@ function parse_header_link($link_header)
     return $result;
 }
 
-/* -------------------------------------------------------------- [R] */
+/* ---------------------------------------------------------------------- [R] */
 
 function request_api($option, &$response_header = array())
 {
     $url_request  = fetch_value($option, 'url_request');
     $access_token = fetch_value($option, 'access_token');
+
+    if(empty($access_token)){
+        return array();
+    }
+
     if ($url_request) {
         $request_api_v3 = 'Accept: application/vnd.github.v3+json';
         $context = stream_context_create([
@@ -246,10 +271,14 @@ function request_api_issue($option)
     echo 'Fetching issues list ';
 
     while (true) {
-        
         echo '.';
 
         $responce = request_api($option, $http_response_header);
+
+        if(empty($responce)){
+            return array();
+        }
+
         $result   = array_merge($result, $responce);
 
         $tmp         = parse_headers($http_response_header);
@@ -261,18 +290,18 @@ function request_api_issue($option)
             break;
         }
 
-        foreach($tmp['Link'] as $link){
+        foreach ($tmp['Link'] as $link) {
             $found_next = false;
 
-            if('next' === $link['rel']){
+            if ('next' === $link['rel']) {
                 echo '.';
                 $option['url_request'] = $link['url'];
                 $found_next = true;
                 break;
             }
         }
-        
-        if(! $found_next){
+
+        if (! $found_next) {
             echo PHP_EOL;
             break;
         }
@@ -281,7 +310,7 @@ function request_api_issue($option)
     return $result;
 }
 
-/* -------------------------------------------------------------- [T] */
+/* ---------------------------------------------------------------------- [T] */
 
 function trim_rel($string)
 {
