@@ -1,6 +1,6 @@
 <?php
 const DIR_SEP = DIRECTORY_SEPARATOR;
-const VER_APP = 'v20180525.0959 beta';
+const VER_APP = 'v20180525.1109';
 
 include('Functions.php');
 

@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/KEINOS/GitHub_Issue-DL-As-MD.svg?branch=master)](https://travis-ci.org/KEINOS/GitHub_Issue-DL-As-MD)
+[![Build Status](https://travis-ci.org/KEINOS/Issue_downloader_as_markdown.svg?branch=master)](https://travis-ci.org/KEINOS/Issue_downloader_as_markdown)
 ![PHP Tested](https://img.shields.io/badge/PHP%20Tested-5.6.35-brightgreen.svg)
 ![PHP Tested](https://img.shields.io/badge/PHP%20Tested-7.1.12-brightgreen.svg)
 ![PHP Tested](https://img.shields.io/badge/PHP%20Tested-7.1.14-brightgreen.svg)
